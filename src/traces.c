@@ -178,7 +178,7 @@ static void draw(Layer *layer, GContext *ctx) {
   #ifdef PBL_SDK_3
     graphics_context_set_stroke_width(ctx, 5); // Stroke width isn't available on Aplite
   #endif
-  
+
   drawPathAt(ctx, trace_paths[0], point_add(center, GPoint(-14, 0))); // Hours 8
   drawPathAt(ctx, trace_paths[1], point_add(center, GPoint(6, 0))); // Hours 4
   drawPathAt(ctx, trace_paths[2], point_add(center, GPoint(16, 0))); // Hours 2
@@ -198,7 +198,7 @@ static void draw(Layer *layer, GContext *ctx) {
   drawPathAt(ctx, trace_paths[14], point_add(center, GPoint(-14, 2))); // Battery
   drawPathAt(ctx, trace_paths[15], point_add(center, GPoint(-14, 12))); // Battery
   drawPathAt(ctx, trace_paths[16], point_add(center, GPoint(-55, -3))); // Battery
-  
+
   #ifdef PBL_SDK_3
     graphics_context_set_stroke_width(ctx, 3); // Stroke width isn't available on Aplite
   #endif
@@ -217,7 +217,7 @@ static void draw(Layer *layer, GContext *ctx) {
  */
 void init_traces(Layer *parent_layer) {
   GRect bounds = layer_get_bounds(parent_layer);
-  
+
   trace_paths[0] = gpath_create(&TRACE1);
   trace_paths[1] = gpath_create(&TRACE2);
   trace_paths[2] = gpath_create(&TRACE3);
@@ -225,8 +225,8 @@ void init_traces(Layer *parent_layer) {
   trace_paths[4] = gpath_create(&TRACE5);
   trace_paths[5] = gpath_create(&TRACE6);
   trace_paths[6] = gpath_create(&TRACE7);
-  trace_paths[7] = gpath_create(&TRACE8);  
-  trace_paths[8] = gpath_create(&TRACE9);  
+  trace_paths[7] = gpath_create(&TRACE8);
+  trace_paths[8] = gpath_create(&TRACE9);
   trace_paths[9] = gpath_create(&TRACE10);
   trace_paths[10] = gpath_create(&TRACE11);
   trace_paths[11] = gpath_create(&TRACE12);
@@ -235,7 +235,7 @@ void init_traces(Layer *parent_layer) {
   trace_paths[14] = gpath_create(&TRACE15);
   trace_paths[15] = gpath_create(&TRACE16);
   trace_paths[16] = gpath_create(&TRACE17);
-  
+
   graphics_layer = layer_create(bounds);
 
   layer_set_update_proc(graphics_layer, draw);

@@ -15,7 +15,7 @@ TextLayer *processor_text;
 static void update_time(struct tm *tick_time) {
   if (tick_time == NULL) {
     // Get a time structure
-    time_t temp = time(NULL); 
+    time_t temp = time(NULL);
     tick_time = localtime(&temp);
   }
 
@@ -28,7 +28,7 @@ static void update_time(struct tm *tick_time) {
     tick_time
   );
   processor_text[1] = 0; // Null-terminate at second character to make it one character long
-  
+
   char day_char[3];
   strftime(
     day_char,
@@ -36,10 +36,10 @@ static void update_time(struct tm *tick_time) {
     "%d",
     tick_time
   );
-  
-  strcat(processor_text, day_char); // Concatenate day on end of month character  
+
+  strcat(processor_text, day_char); // Concatenate day on end of month character
   update_processor(processor_text); // Display this time on the TextLayer
-  
+
   unsigned short hour = tick_time->tm_hour % 12;
   if (hour == 0) {
     hour = 12;
@@ -71,8 +71,8 @@ static void window_load(Window *window) {
   init_processor(root_layer);
   init_battery(root_layer);
   init_hours(root_layer);
-  init_minutes(root_layer);  
-  
+  init_minutes(root_layer);
+
   update_time(NULL);
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   battery_state_service_subscribe(battery_handler);
@@ -95,15 +95,15 @@ static void window_unload(Window *window) {
 void init() {
   window = window_create(); // Create a new window
   #ifdef PBL_COLOR
-    window_set_background_color(window, GColorDarkGreen);  
+    window_set_background_color(window, GColorDarkGreen);
     LED_ON_COLOR = GColorPastelYellow;
     LED_OFF_COLOR = GColorArmyGreen;
   #else
-    window_set_background_color(window, GColorBlack);  
+    window_set_background_color(window, GColorBlack);
     LED_ON_COLOR = GColorWhite;
     LED_OFF_COLOR = GColorBlack;
   #endif
-  
+
   window_set_window_handlers(window, (WindowHandlers) {
     .load = window_load,
     .unload = window_unload

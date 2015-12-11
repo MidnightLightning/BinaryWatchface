@@ -28,7 +28,7 @@ static GPoint get_center_of_led(int id_number, GPoint center) {
  */
 static GColor get_color_of_led(int id_number) {
   BatteryContext *ctx = (BatteryContext*)layer_get_data(graphics_layer);
-  
+
   int num_leds = (int)ctx->battery/10;
   if (num_leds >= id_number+1) {
     return LED_ON_COLOR;
@@ -47,7 +47,7 @@ static void draw(Layer *layer, GContext *ctx) {
   GPoint offset = GPoint(center.x-55, center.y+20);
 
   graphics_full_rect(ctx, GRect(offset.x-7, offset.y-(pad_size+pad_gap)*4-pad_gap/2-3, 14, (pad_size+pad_gap)*9+pad_gap+2), GColorBlack, GColorWhite);
-  
+
   // Draw the LED pads
   for(int i = 0; i < 9; i++) {
     GPoint led_center = get_center_of_led(i, offset);
@@ -61,11 +61,11 @@ static void draw(Layer *layer, GContext *ctx) {
  */
 void init_battery(Layer *parent_layer) {
   GRect bounds = layer_get_bounds(parent_layer);
-  
+
   graphics_layer = layer_create_with_data(bounds, sizeof(BatteryContext));
   BatteryContext *ctx = (BatteryContext*)layer_get_data(graphics_layer);
   ctx->battery = 50;
-  
+
   layer_set_update_proc(graphics_layer, draw);
   layer_add_child(
     parent_layer,

@@ -21,7 +21,7 @@ typedef struct {
 static GPoint get_center_of_led(int id_number, GRect bounds) {
   GPoint center = grect_center_point(&bounds);
   int offset_start = center.x - (pad_size+pad_gap)*3 + pad_gap/2;
-  
+
   #if defined(PBL_ROUND)
     // Round display; arc the pads up into the curved top
     int vertical_offset = 36;
@@ -41,7 +41,7 @@ static GPoint get_center_of_led(int id_number, GRect bounds) {
  */
 static GColor get_color_of_led(int id_number) {
   MinutesContext *ctx = (MinutesContext*)layer_get_data(graphics_layer);
-  
+
   switch(id_number) {
     case 0:
       return (ctx->minutes & 32) ? LED_ON_COLOR : LED_OFF_COLOR;
@@ -66,7 +66,7 @@ static void draw(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
 
   graphics_context_set_stroke_color(ctx, GColorWhite);
-  
+
   // Draw the LED pads
   for(int i = 0; i < 6; i++) {
     GPoint led_center = get_center_of_led(i, bounds);
@@ -81,11 +81,11 @@ static void draw(Layer *layer, GContext *ctx) {
  */
 void init_minutes(Layer *parent_layer) {
   GRect bounds = layer_get_bounds(parent_layer);
-  
+
   graphics_layer = layer_create_with_data(bounds, sizeof(MinutesContext));
   MinutesContext *ctx = (MinutesContext*)layer_get_data(graphics_layer);
   ctx->minutes = 0;
-  
+
   layer_set_update_proc(graphics_layer, draw);
   layer_add_child(
     parent_layer,
