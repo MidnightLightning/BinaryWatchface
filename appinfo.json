@@ -1,5 +1,9 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_SHOW_BLUETOOTH": 1,
+        "KEY_SHOW_DATE": 0,
+        "KEY_THEME": 2
+    },
     "capabilities": [
         "configurable"
     ],
@@ -9,12 +13,16 @@
     "resources": {
         "media": []
     },
-    "sdkVersion": "2",
+    "sdkVersion": "3",
     "shortName": "Binary Watchface",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
     "uuid": "40eb3a80-1df4-4716-b3f9-12ae417773e3",
-    "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
-        "watchface": false
+        "watchface": true
     }
 }

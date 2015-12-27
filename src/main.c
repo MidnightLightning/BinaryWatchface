@@ -6,8 +6,16 @@
 #include "hours_pads.h"
 #include "minutes_pads.h"
 
+#define KEY_SHOW_DATE 0
+#define KEY_SHOW_BLUETOOTH 1
+#define KEY_THEME 2
+
 Window *window;
 TextLayer *processor_text;
+
+static boolean showDate = true;
+static boolean showBluetooth = true;
+static int theme = 2;
 
 /**
  * Update the watchface display
@@ -62,11 +70,42 @@ static void battery_handler(BatteryChargeState state) {
   update_battery(state.charge_percent);
 }
 
+static void inbox_received_handler(DictionaryIterator *iter, void *context) {
+  Tuple *show_date_t = dict_find(iter, KEY_SHOW_DATE);
+  Tuple *show_bluetooth_t = dict_find(iter, KEY_SHOW_BLUETOOTH);
+  Tuple *theme_t = dict_find(iter, KEY_THEME);
+  
+  if (show_date_t) {
+    showDate = show_date_t->value->int8;
+    persist_write_key(KEY_SHOW_DATE, showDate);
+  }
+  if (show_bluetooth_t) {
+    showBluetooth = show_bluetooth_t->value->int8;
+    persist_write_key(KEY_SHOW_BLUETOOTH, showBluetooth);
+  }
+  if (theme_t) {
+    theme = theme_t->value->int8;
+    persist_write_key(KEY_THEME, theme);
+  }
+  updateTime();  
+}
+
 /**
  * Main window loading
  */
 static void window_load(Window *window) {
   Layer *root_layer = window_get_root_layer(window);
+
+  if (persist_read_bool(KEY_SHOW_DATE)) {
+    showDate = persist_read_bool(KEY_SHOW_DATE));
+  }
+  if (persist_read_bool(KEY_SHOW_BLUETOOTH)) {
+    showBluetooth = persist_read_bool(KEY_SHOW_BLUETOOTH);
+  }
+  if (persist_read_int(KEY_THEME)) {
+    theme = persist_read_int(KEY_THEME);
+  }
+
   init_traces(root_layer);
   init_processor(root_layer);
   init_battery(root_layer);
@@ -76,6 +115,8 @@ static void window_load(Window *window) {
   update_time(NULL);
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   battery_state_service_subscribe(battery_handler);
+  app_message_register_inbox_received(inbox_received_handler);
+  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 }
 
 /**
