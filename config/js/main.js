@@ -19,22 +19,22 @@ var getAndStoreConfigData = function() {
 		theme: $('#theme').val()
 	};
 	
-	localStorage.showDate = options.showDate;
-	localStorage.showBluetooth = options.showBluetooth;
-	localStorage.theme = options.theme;
+	localStorage['binaryWatchface.showDate'] = options.showDate;
+	localStorage['binaryWatchface.showBluetooth'] = options.showBluetooth;
+	localStorage['binaryWatchface.theme'] = options.theme;
 	
 	return options;
 };
 
 var loadOptions = function() {
-	if (localStorage.showDate) {
-		$('#showDate')[0].checked = localStorage.showDate === 'true';
+	if (localStorage['binaryWatchface.showDate']) {
+		$('#showDate')[0].checked = localStorage['binaryWatchface.showDate'] === 'true';
 	}
-	if (localStorage.showBluetooth) {
-		$('#showBluetooth')[0].checked = localStorage.showBluetooth === 'true';
+	if (localStorage['binaryWatchface.showBluetooth']) {
+		$('#showBluetooth')[0].checked = localStorage['binaryWatchface.showBluetooth'] === 'true';
 	}
-	if (localStorage.theme) {
-		$('#theme')[0].value = localStorage.theme;
+	if (localStorage['binaryWatchface.theme']) {
+		$('#theme')[0].value = localStorage['binaryWatchface.theme'];
 	}
 };
 
