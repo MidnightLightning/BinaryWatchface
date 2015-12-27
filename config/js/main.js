@@ -16,7 +16,7 @@ var getAndStoreConfigData = function() {
 	var options = {
 		showDate: $('#showDate')[0].checked,
 		showBluetooth: $('#showBluetooth')[0].checked,
-		theme: $('#theme').val()
+		theme: parseInt($('#theme').val())
 	};
 	
 	localStorage['binaryWatchface.showDate'] = options.showDate;
