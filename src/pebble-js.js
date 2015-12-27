@@ -5,9 +5,9 @@ Pebble.addEventListener('showConfiguration', function() {
 Pebble.addEventListener('webviewclosed', function(e) {
   var configData = JSON.parse(decodeURIComponent(e.response));
   Pebble.sendAppMessage({
-    showDate: configData.showDate,
-    showBluetooth: configData.showBluetooth,
-    theme: configData.theme
+    'KEY_SHOW_DATE': configData.showDate,
+    'KEY_SHOW_BLUETOOTH': configData.showBluetooth,
+    'KEY_THEME': parseInt(configData.theme)
   }, function() {
     console.log('Configuration update successful');
   }, function() {

@@ -165,16 +165,12 @@ static void drawCirclePad(GContext *ctx, GPoint offset) {
  * Update the graphics layer
  */
 static void draw(Layer *layer, GContext *ctx) {
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "Redrawing Traces layer");
   GRect bounds = layer_get_bounds(layer);
   GPoint center = grect_center_point(&bounds);
 
-  #ifdef PBL_COLOR
-    graphics_context_set_stroke_color(ctx, GColorWindsorTan);
-    graphics_context_set_fill_color(ctx, GColorDarkGreen);
-  #else
-    graphics_context_set_stroke_color(ctx, GColorWhite);
-    graphics_context_set_fill_color(ctx, GColorBlack);
-  #endif
+  graphics_context_set_stroke_color(ctx, TRACE_COLOR);
+  graphics_context_set_fill_color(ctx, BACKGROUND_COLOR);
   #ifdef PBL_SDK_3
     graphics_context_set_stroke_width(ctx, 5); // Stroke width isn't available on Aplite
   #endif
