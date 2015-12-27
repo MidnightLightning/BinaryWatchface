@@ -200,7 +200,7 @@ static void window_load(Window *window) {
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   battery_state_service_subscribe(battery_handler);
   app_message_register_inbox_received(inbox_received_handler);
-  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
+  app_message_open(128, 64);
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Window Loading done");
 }
 
