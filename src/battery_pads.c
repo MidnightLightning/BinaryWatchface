@@ -64,7 +64,7 @@ void init_battery(Layer *parent_layer) {
 
   graphics_layer = layer_create_with_data(bounds, sizeof(BatteryContext));
   BatteryContext *ctx = (BatteryContext*)layer_get_data(graphics_layer);
-  ctx->battery = 50;
+  ctx->battery = 0;
 
   layer_set_update_proc(graphics_layer, draw);
   layer_add_child(

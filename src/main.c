@@ -197,6 +197,7 @@ static void window_load(Window *window) {
   init_minutes(root_layer);
 
   update_time(NULL);
+  battery_handler(battery_state_service_peek());
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   battery_state_service_subscribe(battery_handler);
   app_message_register_inbox_received(inbox_received_handler);
