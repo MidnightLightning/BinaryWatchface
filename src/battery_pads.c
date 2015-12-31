@@ -43,7 +43,11 @@ static GColor get_color_of_led(int id_number) {
  */
 static void draw(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
-  GPoint offset = point_add(grect_center_point(&bounds), GPoint(-56, 18));
+  #if defined(PBL_ROUND)
+    GPoint offset = point_add(grect_center_point(&bounds), GPoint(-70, 12));
+  #else
+    GPoint offset = point_add(grect_center_point(&bounds), GPoint(-56, 20));
+  #endif
 
   graphics_full_rect(ctx, GRect(offset.x-7, offset.y-(pad_size+pad_gap)*4-pad_gap/2-3, 15, (pad_size+pad_gap)*9+pad_gap+2), GColorBlack, GColorWhite);
 

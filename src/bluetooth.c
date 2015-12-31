@@ -16,7 +16,7 @@ static void draw(Layer *layer, GContext *ctx) {
   if (SHOW_BLUETOOTH == false) return;
   
   GRect bounds = layer_get_bounds(layer);
-  GPoint led_center = point_add(grect_center_point(&bounds), GPoint(55, -18));
+  GPoint led_center = point_add(grect_center_point(&bounds), GPoint(54, -18));
 
   graphics_full_rect(ctx, GRect(led_center.x-pad_size/2, led_center.y-pad_size/2, pad_size, pad_size), GColorBlack, GColorWhite);
   

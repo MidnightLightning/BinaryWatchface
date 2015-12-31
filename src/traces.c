@@ -13,7 +13,7 @@ static const GPathInfo TRACE1 = {  // Hours 8
     {0, 0},
     {0, -25},
     {-34, -42}, // 2/1
-    {-34, -70}
+    {-34, -100}
   }
 };
 static const GPathInfo TRACE2 = { // Hours 4
@@ -22,14 +22,14 @@ static const GPathInfo TRACE2 = { // Hours 4
     {0, 0},
     {0, -37},
     {-22, -48}, // 2/1
-    {-22, -70}
+    {-22, -100}
   }
 };
 static const GPathInfo TRACE3 = { // Hours 2
   .num_points = 2,
   .points = (GPoint []) {
     {0, 0},
-    {0, -70}
+    {0, -100}
   }
 };
 static const GPathInfo TRACE4 = { // Hours 1
@@ -38,7 +38,7 @@ static const GPathInfo TRACE4 = { // Hours 1
     {0, 0},
     {0, -35},
     {22, -46}, // 2/1
-    {22, -70}
+    {22, -100}
   }
 };
 static const GPathInfo TRACE5 = {
@@ -53,7 +53,7 @@ static const GPathInfo TRACE6 = { // Minutes 1
   .points = (GPoint []) {
     {0, 0},
     {30, 0},
-    {30, 70}
+    {30, 100}
   }
 };
 static const GPathInfo TRACE7 = { // Minutes 2
@@ -63,7 +63,7 @@ static const GPathInfo TRACE7 = { // Minutes 2
     {20, 0},
     {20, 40},
     {8, 46},
-    {8, 70}
+    {8, 100}
   }
 };
 static const GPathInfo TRACE8 = { // Minutes 4
@@ -72,7 +72,7 @@ static const GPathInfo TRACE8 = { // Minutes 4
     {0, 0},
     {0, 40},
     {-5, 43},
-    {-5, 60}
+    {-5, 80}
   }
 };
 static const GPathInfo TRACE9 = { // Minutes 8
@@ -81,7 +81,7 @@ static const GPathInfo TRACE9 = { // Minutes 8
     {0, 0},
     {0, 35},
     {-16, 43},
-    {-16, 60}
+    {-16, 80}
   }
 };
 static const GPathInfo TRACE10 = { // Minutes 16
@@ -90,7 +90,7 @@ static const GPathInfo TRACE10 = { // Minutes 16
     {0, 0},
     {0, 30},
     {-28, 44},
-    {-28, 60}
+    {-28, 80}
   }
 };
 static const GPathInfo TRACE11 = { // Minutes 32
@@ -99,7 +99,7 @@ static const GPathInfo TRACE11 = { // Minutes 32
     {0, 0},
     {0, 25},
     {-40, 45},
-    {-40, 60}
+    {-40, 80}
   }
 };
 static const GPathInfo TRACE12 = {
@@ -123,18 +123,20 @@ static const GPathInfo TRACE14 = { // Battery 1
     {0, 0},
     {-20, 0},
     {-50, -15},
-    {-60, -15}
+    {-80, -15}
   }
 };
+
 static const GPathInfo TRACE15 = { // Battery 2
   .num_points = 4,
   .points = (GPoint []) {
     {0, 0},
     {-25, 0},
     {-35, -5},
-    {-60, -5}
+    {-80, -5}
   }
 };
+
 static const GPathInfo TRACE16 = { // Battery 3
   .num_points = 2,
   .points = (GPoint []) {
@@ -188,12 +190,19 @@ static void draw(Layer *layer, GContext *ctx) {
   drawPathAt(ctx, trace_paths[9], point_add(center, GPoint(-5, 10))); // Minutes 16
   drawPathAt(ctx, trace_paths[10], point_add(center, GPoint(-15, 10))); // Minutes 32
   drawPathAt(ctx, trace_paths[11], point_add(center, GPoint(25, 10))); // Stub
-  drawPathAt(ctx, trace_paths[12], point_add(center, GPoint(55, -8))); // Stub
+  drawPathAt(ctx, trace_paths[12], point_add(center, GPoint(54, -8))); // Stub
 
-  drawPathAt(ctx, trace_paths[13], point_add(center, GPoint(-15, -8))); // Battery
-  drawPathAt(ctx, trace_paths[14], point_add(center, GPoint(-15, 2))); // Battery
-  drawPathAt(ctx, trace_paths[15], point_add(center, GPoint(-15, 12))); // Battery
-  drawPathAt(ctx, trace_paths[16], point_add(center, GPoint(-55, -3))); // Battery
+  #if defined(PBL_ROUND)
+    drawPathAt(ctx, trace_paths[13], point_add(center, GPoint(-15, -8))); // Battery
+    drawPathAt(ctx, trace_paths[13], point_add(center, GPoint(-15, 2))); // Battery
+    drawPathAt(ctx, trace_paths[15], point_add(center, GPoint(-15, 12))); // Battery
+    drawPathAt(ctx, trace_paths[16], point_add(center, GPoint(-70, -12))); // Battery
+  #else
+    drawPathAt(ctx, trace_paths[13], point_add(center, GPoint(-15, -8))); // Battery
+    drawPathAt(ctx, trace_paths[14], point_add(center, GPoint(-15, 2))); // Battery
+    drawPathAt(ctx, trace_paths[15], point_add(center, GPoint(-15, 12))); // Battery
+    drawPathAt(ctx, trace_paths[16], point_add(center, GPoint(-55, -3))); // Battery
+  #endif
 
   #ifdef PBL_SDK_3
     graphics_context_set_stroke_width(ctx, 3); // Stroke width isn't available on Aplite
@@ -201,9 +210,9 @@ static void draw(Layer *layer, GContext *ctx) {
   drawCirclePad(ctx, point_add(center, GPoint(-5, -30)));
   drawCirclePad(ctx, point_add(center, GPoint(25, 30)));
   drawCirclePad(ctx, point_add(center, GPoint(25, 40)));
-  drawCirclePad(ctx, point_add(center, GPoint(55, -18)));
+  drawCirclePad(ctx, point_add(center, GPoint(54, -18)));
   drawCirclePad(ctx, point_add(center, GPoint(68, -18)));
-  drawCirclePad(ctx, point_add(center, GPoint(55, 2)));
+  drawCirclePad(ctx, point_add(center, GPoint(54, 2)));
   drawCirclePad(ctx, point_add(center, GPoint(68, 2)));
   drawCirclePad(ctx, point_add(center, GPoint(-33, 12)));
 }
