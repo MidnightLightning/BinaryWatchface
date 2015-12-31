@@ -6,8 +6,8 @@
  * Handle the drawing and updating of the graphics for the LED pads for hours display
  */
 
-static int pad_size = 24;
-static int pad_gap = 8;
+static int pad_size = 25;
+static int pad_gap = 7;
 static Layer *graphics_layer;
 typedef struct {
   unsigned short hours;
@@ -55,8 +55,6 @@ static GColor get_color_of_led(int id_number) {
  */
 static void draw(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
-
-  graphics_context_set_stroke_color(ctx, GColorWhite);
 
   // Draw the LED pads
   for(int i = 0; i < 4; i++) {

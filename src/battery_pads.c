@@ -43,16 +43,15 @@ static GColor get_color_of_led(int id_number) {
  */
 static void draw(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
-  GPoint center = grect_center_point(&bounds);
-  GPoint offset = GPoint(center.x-55, center.y+20);
+  GPoint offset = point_add(grect_center_point(&bounds), GPoint(-56, 18));
 
-  graphics_full_rect(ctx, GRect(offset.x-7, offset.y-(pad_size+pad_gap)*4-pad_gap/2-3, 14, (pad_size+pad_gap)*9+pad_gap+2), GColorBlack, GColorWhite);
+  graphics_full_rect(ctx, GRect(offset.x-7, offset.y-(pad_size+pad_gap)*4-pad_gap/2-3, 15, (pad_size+pad_gap)*9+pad_gap+2), GColorBlack, GColorWhite);
 
   // Draw the LED pads
   for(int i = 0; i < 9; i++) {
     GPoint led_center = get_center_of_led(i, offset);
     graphics_context_set_fill_color(ctx, get_color_of_led(i));
-    graphics_fill_rect(ctx, GRect(led_center.x-5, led_center.y-pad_size/2, 10, pad_size), 0, GCornerNone);
+    graphics_fill_rect(ctx, GRect(led_center.x-5, led_center.y-pad_size/2, 11, pad_size), 0, GCornerNone);
   }
 }
 

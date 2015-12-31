@@ -32,7 +32,7 @@ static void draw(Layer *layer, GContext *ctx) {
   GRect bounds = layer_get_bounds(layer);
   GPoint center = grect_center_point(&bounds);
 
-  gpath_move_to(processor_chip_path, point_add(center, GPoint(6, 2)));
+  gpath_move_to(processor_chip_path, point_add(center, GPoint(5, 2)));
 
   graphics_context_set_fill_color(ctx, CHIP_COLOR);
   gpath_draw_filled(ctx, processor_chip_path);

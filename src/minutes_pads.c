@@ -6,8 +6,8 @@
  * Handle the drawing and updating of the graphics for the LED pads for minutes display
  */
 
-static int pad_size = 18;
-static int pad_gap = 4;
+static int pad_size = 17;
+static int pad_gap = 5;
 static Layer *graphics_layer;
 typedef struct {
   unsigned short minutes;
@@ -24,11 +24,11 @@ static GPoint get_center_of_led(int id_number, GRect bounds) {
 
   #if defined(PBL_ROUND)
     // Round display; arc the pads up into the curved top
-    int vertical_offset = 36;
+    int vertical_offset = 34;
     if (id_number == 2 || id_number == 3) {
       vertical_offset = 8;
     } else if (id_number == 1 || id_number == 4) {
-      vertical_offset = 22;
+      vertical_offset = 18;
     }
   #else
     int vertical_offset = 5;

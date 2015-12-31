@@ -113,8 +113,8 @@ static const GPathInfo TRACE13 = {
   .num_points = 3,
   .points = (GPoint []) {
     {0, 0},
-    {0, -30},
-    {40, -50}
+    {0, -35},
+    {40, -55}
   }
 };
 static const GPathInfo TRACE14 = { // Battery 1
@@ -175,37 +175,37 @@ static void draw(Layer *layer, GContext *ctx) {
     graphics_context_set_stroke_width(ctx, 5); // Stroke width isn't available on Aplite
   #endif
 
-  drawPathAt(ctx, trace_paths[0], point_add(center, GPoint(-14, 0))); // Hours 8
-  drawPathAt(ctx, trace_paths[1], point_add(center, GPoint(6, 0))); // Hours 4
-  drawPathAt(ctx, trace_paths[2], point_add(center, GPoint(16, 0))); // Hours 2
-  drawPathAt(ctx, trace_paths[3], point_add(center, GPoint(26, 0))); // Hours 1
-  drawPathAt(ctx, trace_paths[4], point_add(center, GPoint(-4, 0))); // Stub
+  drawPathAt(ctx, trace_paths[0], point_add(center, GPoint(-15, 0))); // Hours 8
+  drawPathAt(ctx, trace_paths[1], point_add(center, GPoint(5, 0))); // Hours 4
+  drawPathAt(ctx, trace_paths[2], point_add(center, GPoint(15, 0))); // Hours 2
+  drawPathAt(ctx, trace_paths[3], point_add(center, GPoint(25, 0))); // Hours 1
+  drawPathAt(ctx, trace_paths[4], point_add(center, GPoint(-5, 0))); // Stub
 
-  drawPathAt(ctx, trace_paths[5], point_add(center, GPoint(26, -8))); // Minutes 1
-  drawPathAt(ctx, trace_paths[6], point_add(center, GPoint(26, 2))); // Minutes 2
-  drawPathAt(ctx, trace_paths[7], point_add(center, GPoint(16, 10))); // Minutes 4
-  drawPathAt(ctx, trace_paths[8], point_add(center, GPoint(6, 10))); // Minutes 8
-  drawPathAt(ctx, trace_paths[9], point_add(center, GPoint(-4, 10))); // Minutes 16
-  drawPathAt(ctx, trace_paths[10], point_add(center, GPoint(-14, 10))); // Minutes 32
-  drawPathAt(ctx, trace_paths[11], point_add(center, GPoint(26, 10))); // Stub
-  drawPathAt(ctx, trace_paths[12], point_add(center, GPoint(56, -8))); // Stub
+  drawPathAt(ctx, trace_paths[5], point_add(center, GPoint(24, -8))); // Minutes 1
+  drawPathAt(ctx, trace_paths[6], point_add(center, GPoint(24, 2))); // Minutes 2
+  drawPathAt(ctx, trace_paths[7], point_add(center, GPoint(15, 10))); // Minutes 4
+  drawPathAt(ctx, trace_paths[8], point_add(center, GPoint(5, 10))); // Minutes 8
+  drawPathAt(ctx, trace_paths[9], point_add(center, GPoint(-5, 10))); // Minutes 16
+  drawPathAt(ctx, trace_paths[10], point_add(center, GPoint(-15, 10))); // Minutes 32
+  drawPathAt(ctx, trace_paths[11], point_add(center, GPoint(25, 10))); // Stub
+  drawPathAt(ctx, trace_paths[12], point_add(center, GPoint(55, -8))); // Stub
 
-  drawPathAt(ctx, trace_paths[13], point_add(center, GPoint(-14, -8))); // Battery
-  drawPathAt(ctx, trace_paths[14], point_add(center, GPoint(-14, 2))); // Battery
-  drawPathAt(ctx, trace_paths[15], point_add(center, GPoint(-14, 12))); // Battery
+  drawPathAt(ctx, trace_paths[13], point_add(center, GPoint(-15, -8))); // Battery
+  drawPathAt(ctx, trace_paths[14], point_add(center, GPoint(-15, 2))); // Battery
+  drawPathAt(ctx, trace_paths[15], point_add(center, GPoint(-15, 12))); // Battery
   drawPathAt(ctx, trace_paths[16], point_add(center, GPoint(-55, -3))); // Battery
 
   #ifdef PBL_SDK_3
     graphics_context_set_stroke_width(ctx, 3); // Stroke width isn't available on Aplite
   #endif
-  drawCirclePad(ctx, point_add(center, GPoint(-4, -30)));
-  drawCirclePad(ctx, point_add(center, GPoint(26, 30)));
-  drawCirclePad(ctx, point_add(center, GPoint(26, 40)));
-  drawCirclePad(ctx, point_add(center, GPoint(56, -18)));
-  drawCirclePad(ctx, point_add(center, GPoint(69, -18)));
-  drawCirclePad(ctx, point_add(center, GPoint(56, 2)));
-  drawCirclePad(ctx, point_add(center, GPoint(69, 2)));
-  drawCirclePad(ctx, point_add(center, GPoint(-34, 12)));
+  drawCirclePad(ctx, point_add(center, GPoint(-5, -30)));
+  drawCirclePad(ctx, point_add(center, GPoint(25, 30)));
+  drawCirclePad(ctx, point_add(center, GPoint(25, 40)));
+  drawCirclePad(ctx, point_add(center, GPoint(55, -18)));
+  drawCirclePad(ctx, point_add(center, GPoint(68, -18)));
+  drawCirclePad(ctx, point_add(center, GPoint(55, 2)));
+  drawCirclePad(ctx, point_add(center, GPoint(68, 2)));
+  drawCirclePad(ctx, point_add(center, GPoint(-33, 12)));
 }
 
 /**

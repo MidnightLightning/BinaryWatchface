@@ -3,6 +3,7 @@
 #include "traces.h"
 #include "processor.h"
 #include "battery_pads.h"
+#include "bluetooth.h"
 #include "hours_pads.h"
 #include "minutes_pads.h"
 
@@ -14,7 +15,6 @@ Window *window;
 TextLayer *processor_text;
 
 static bool showDate = true;
-static bool showBluetooth = true;
 static int theme = 2;
 
 /**
@@ -115,13 +115,13 @@ static void set_theme(int theme) {
     }
   #else
     if (theme == 0) { // Mono Day
-      BACKGROUND_COLOR = GColorWhite;
+      BACKGROUND_COLOR = GColorLightGray;
       LED_ON_COLOR = GColorWhite;
       LED_OFF_COLOR = GColorBlack;    
       CHIP_COLOR = GColorWhite;
       CHIP_OUTLINE_COLOR= GColorBlack;
       CHIP_TEXT_COLOR = GColorBlack;
-      TRACE_COLOR = GColorBlack;
+      TRACE_COLOR = GColorWhite;
     } else { // Mono Night
       BACKGROUND_COLOR = GColorBlack;
       LED_ON_COLOR = GColorWhite;
@@ -148,6 +148,13 @@ static void battery_handler(BatteryChargeState state) {
   update_battery(state.charge_percent);
 }
 
+/**
+ * Handle updates from the Bluetooth connection service
+ */
+static void bluetooth_handler(bool connected) {
+  update_bluetooth(connected);
+}
+
 static void inbox_received_handler(DictionaryIterator *iter, void *context) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Received AppMessage");
   Tuple *show_date_t = dict_find(iter, KEY_SHOW_DATE);
@@ -159,8 +166,8 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
     persist_write_bool(KEY_SHOW_DATE, showDate);
   }
   if (show_bluetooth_t) {
-    showBluetooth = show_bluetooth_t->value->int8;
-    persist_write_bool(KEY_SHOW_BLUETOOTH, showBluetooth);
+    SHOW_BLUETOOTH = show_bluetooth_t->value->int8;
+    persist_write_bool(KEY_SHOW_BLUETOOTH, SHOW_BLUETOOTH);
   }
   if (theme_t) {
     theme = theme_t->value->int8;
@@ -181,7 +188,9 @@ static void window_load(Window *window) {
     showDate = persist_read_bool(KEY_SHOW_DATE);
   }
   if (persist_read_bool(KEY_SHOW_BLUETOOTH)) {
-    showBluetooth = persist_read_bool(KEY_SHOW_BLUETOOTH);
+    SHOW_BLUETOOTH = persist_read_bool(KEY_SHOW_BLUETOOTH);
+  } else {
+    SHOW_BLUETOOTH = true;
   }
   if (persist_read_int(KEY_THEME)) {
     theme = persist_read_int(KEY_THEME);
@@ -193,13 +202,18 @@ static void window_load(Window *window) {
   init_traces(root_layer);
   init_processor(root_layer);
   init_battery(root_layer);
+  init_bluetooth(root_layer);
   init_hours(root_layer);
   init_minutes(root_layer);
 
   update_time(NULL);
   battery_handler(battery_state_service_peek());
+  bluetooth_handler(connection_service_peek_pebble_app_connection());
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
   battery_state_service_subscribe(battery_handler);
+  connection_service_subscribe((ConnectionHandlers) {
+    .pebble_app_connection_handler = bluetooth_handler
+  });
   app_message_register_inbox_received(inbox_received_handler);
   app_message_open(128, 64);
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Window Loading done");
@@ -212,6 +226,7 @@ static void window_unload(Window *window) {
   unload_traces();
   unload_processor();
   unload_battery();
+  unload_bluetooth();
   unload_hours();
   unload_minutes();
 }
