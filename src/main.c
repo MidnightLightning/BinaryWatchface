@@ -11,6 +11,15 @@
 #define KEY_SHOW_BLUETOOTH 1
 #define KEY_THEME 2
 
+#define THEME_MONO_DAY 0
+#define THEME_MONO_NIGHT 1
+#define THEME_BRIMSTONE 2
+#define THEME_GREENBOARD 3
+#define THEME_ICE_PALACE 4
+#define THEME_MATRIX 5
+#define THEME_OCEAN 6
+#define THEME_PONIES 7
+
 Window *window;
 TextLayer *processor_text;
 
@@ -67,7 +76,7 @@ static void set_theme(int theme) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Theme set to %d", theme);
   #ifdef PBL_COLOR
     switch(theme) {
-      case 0: // Mono Day
+      case THEME_MONO_DAY:
         BACKGROUND_COLOR = GColorWhite;
         LED_ON_COLOR = GColorWhite;
         LED_OFF_COLOR = GColorBlack;    
@@ -76,7 +85,7 @@ static void set_theme(int theme) {
         CHIP_TEXT_COLOR = GColorBlack;
         TRACE_COLOR = GColorLightGray;
         break;
-      case 1: // Mono Night
+      case THEME_MONO_NIGHT:
         BACKGROUND_COLOR = GColorBlack;
         LED_ON_COLOR = GColorWhite;
         LED_OFF_COLOR = GColorBlack;    
@@ -85,7 +94,16 @@ static void set_theme(int theme) {
         CHIP_TEXT_COLOR = GColorLightGray;
         TRACE_COLOR = GColorDarkGray;
         break;
-      case 2: // Greenboard
+      case THEME_BRIMSTONE:
+        BACKGROUND_COLOR = GColorBlack;
+        LED_ON_COLOR = GColorRed;
+        LED_OFF_COLOR = GColorBulgarianRose;
+        CHIP_COLOR = GColorDarkCandyAppleRed;
+        CHIP_OUTLINE_COLOR= GColorBulgarianRose;
+        CHIP_TEXT_COLOR = GColorIcterine;
+        TRACE_COLOR = GColorWindsorTan;
+        break;
+      case THEME_GREENBOARD:
         BACKGROUND_COLOR = GColorDarkGreen;
         LED_ON_COLOR = GColorPastelYellow;
         LED_OFF_COLOR = GColorArmyGreen;
@@ -94,7 +112,16 @@ static void set_theme(int theme) {
         CHIP_TEXT_COLOR = GColorLightGray;
         TRACE_COLOR = GColorMayGreen;
         break;
-      case 3: // Matrix
+      case THEME_ICE_PALACE:
+        BACKGROUND_COLOR = GColorWhite;
+        LED_ON_COLOR = GColorCeleste;
+        LED_OFF_COLOR = GColorDukeBlue;
+        CHIP_COLOR = GColorDukeBlue;
+        CHIP_OUTLINE_COLOR= GColorCobaltBlue;
+        CHIP_TEXT_COLOR = GColorCeleste;
+        TRACE_COLOR = GColorCyan;
+        break;
+      case THEME_MATRIX:
         BACKGROUND_COLOR = GColorBlack;
         LED_ON_COLOR = GColorBrightGreen;
         LED_OFF_COLOR = GColorDarkGreen;
@@ -103,7 +130,16 @@ static void set_theme(int theme) {
         CHIP_TEXT_COLOR = GColorLightGray;
         TRACE_COLOR = GColorDarkGreen;
         break;
-      case 4: // Ponies!!!
+      case THEME_OCEAN:
+        BACKGROUND_COLOR = GColorCobaltBlue;
+        LED_ON_COLOR = GColorMediumAquamarine;
+        LED_OFF_COLOR = GColorDarkGreen;
+        CHIP_COLOR = GColorOxfordBlue;
+        CHIP_OUTLINE_COLOR= GColorCobaltBlue;
+        CHIP_TEXT_COLOR = GColorWhite;
+        TRACE_COLOR = GColorVividCerulean;
+        break;
+      case THEME_PONIES:
         BACKGROUND_COLOR = GColorVeryLightBlue;
         LED_ON_COLOR = GColorBrilliantRose;
         LED_OFF_COLOR = GColorImperialPurple;
